@@ -8,8 +8,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Client thread that communicates with TMDB API
- * @author pavle
+ * Client class that communicates with TMDB API and stores resulting raw String in JSON format
+ * @author Pavle
  * 
  */
 public class TMDBClient implements Runnable {
@@ -23,7 +23,8 @@ public class TMDBClient implements Runnable {
 		result = new StringBuilder();
 	}
 	
-	public URL createURL() {
+	// returns URL for HTTP communication with database from given request
+	private URL createURL() {
 		URL ret = null;
 		try {
 			 ret = new URL(request + "?" + apiKey);
@@ -34,6 +35,12 @@ public class TMDBClient implements Runnable {
 		return ret;
 	}
 	
+	/**
+	 * Creates TMDB client thread that communicates with TMDB database and waits for it to write resulting string
+	 * in client.result string
+	 * @param request String from a specific request type
+	 * @return results from communicating with the database
+	 */
 	public static StringBuilder createTMDBRequest(StringBuilder request) {
 		TMDBClient client = new TMDBClient(request);
 		Thread thread = new Thread(client);
@@ -47,9 +54,6 @@ public class TMDBClient implements Runnable {
 		return client.result;
 	}
 	
-	public StringBuilder getResult() {
-		return result;
-	}
 
 	@Override
 	public void run() {
