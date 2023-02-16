@@ -1,2 +1,5 @@
-# Prokot
-Website that recommends movies based on movies that you watched
+# FilmPicker
+Website that recommends movies based on previous movies that you have watched.
+
+Current version:
+TMDBClient class that communicates with TMDB API and gets requested raw data in JSON format
