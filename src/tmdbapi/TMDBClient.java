@@ -41,7 +41,7 @@ public class TMDBClient implements Runnable {
 	 * @param request String from a specific request type
 	 * @return results from communicating with the database
 	 */
-	public static StringBuilder createTMDBRequest(StringBuilder request) {
+	public static String createTMDBRequest(StringBuilder request) {
 		TMDBClient client = new TMDBClient(request);
 		Thread thread = new Thread(client);
 		thread.start();
@@ -51,10 +51,9 @@ public class TMDBClient implements Runnable {
 			e.printStackTrace();
 		}
 		
-		return client.result;
+		return client.result.toString();
 	}
 	
-
 	@Override
 	public void run() {
 		URL requestURL = createURL();
@@ -68,6 +67,8 @@ public class TMDBClient implements Runnable {
 				if(input == null) break;
 				result.append(input);
 			}
+			
+			in.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
