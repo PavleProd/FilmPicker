@@ -7,4 +7,4 @@ Website that recommends movies based on previous movies that you have watched.
 
 ## Used Libraries
 
-__Jackson__ for JSON data parsing  
+### Jackson - for JSON data parsing  
