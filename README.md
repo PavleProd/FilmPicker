@@ -2,5 +2,9 @@
 Website that recommends movies based on previous movies that you have watched.
 
 ## Current version:
-* TMDBClient class that communicates with TMDB API and gets requested raw data in JSON format
-* Console application that can print information about movies
+* TMDBService class that provides future interface for communaction with TMDB API
+* Console application that can print formatted information about movies
+
+## Used Libraries
+
+** Jackson ** for JSON data parsing  
