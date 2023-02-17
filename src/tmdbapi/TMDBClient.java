@@ -13,21 +13,31 @@ import java.net.URL;
  * 
  */
 public class TMDBClient implements Runnable {
-	private static final String apiKey = "api_key=2330bf4c6a895a88a713da945dfd0dad";
+	private static final String apiKey = "?api_key=2330bf4c6a895a88a713da945dfd0dad";
+	private static final String requestBase = "https://api.themoviedb.org/3/";
 	private static final String getDataMethod = "GET";
-	private StringBuilder request;
+	private Request request;
 	private StringBuilder result;
 	
-	public TMDBClient(StringBuilder request) {
+	public TMDBClient(Request request) {
 		this.request = request;
 		result = new StringBuilder();
+	}
+	
+	// Returns full path of the request
+	private String getFullRequestString() {
+		String reqString = requestBase;
+		reqString += request.getName();
+		reqString += apiKey;
+		reqString += request.getQuery();
+		return reqString;
 	}
 	
 	// returns URL for HTTP communication with database from given request
 	private URL createURL() {
 		URL ret = null;
 		try {
-			 ret = new URL(request + "?" + apiKey);
+			ret = new URL(getFullRequestString());
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,7 +51,7 @@ public class TMDBClient implements Runnable {
 	 * @param request String from a specific request type
 	 * @return results from communicating with the database
 	 */
-	public static String createTMDBRequest(StringBuilder request) {
+	public static String createTMDBRequest(Request request) {
 		TMDBClient client = new TMDBClient(request);
 		Thread thread = new Thread(client);
 		thread.start();

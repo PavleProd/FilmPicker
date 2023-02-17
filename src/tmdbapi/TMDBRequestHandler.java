@@ -5,12 +5,25 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TMDBRequestHandler {
-	public static Object request(Class<?> objClass, String name) {
-		String result = sendRequest(name);
+
+	/**
+	 * 
+	 * @param objClass
+	 * @param request
+	 * @return
+	 */
+	public static Object request(Class<?> objClass, Request request) {
+		String result = sendRequest(request);
 		ObjectMapper mapper = new ObjectMapper();
 		Object object = null;
 		try {
-			object = mapper.readValue(result, objClass);
+			if(request.getQuery() == "") {
+				object = mapper.readValue(result, objClass);
+			}
+			else {
+				
+			}
+			
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -23,9 +36,7 @@ public class TMDBRequestHandler {
 	}
 	
 	// Sends request to the database and returns requested result.
-	private static String sendRequest(String name) {
-		StringBuilder request = new StringBuilder("https://api.themoviedb.org/3/");
-		request.append(name);
+	private static String sendRequest(Request request) {
 		return TMDBClient.createTMDBRequest(request);
 	}
 }
