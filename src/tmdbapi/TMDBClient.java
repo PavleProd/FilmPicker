@@ -30,6 +30,7 @@ public class TMDBClient implements Runnable {
 		reqString += request.getName();
 		reqString += apiKey;
 		reqString += request.getQuery();
+		reqString += request.getPageNum();
 		return reqString;
 	}
 	

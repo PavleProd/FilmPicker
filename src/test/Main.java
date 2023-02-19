@@ -1,11 +1,9 @@
 package test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 
 import tmdbapi.TMDBService;
-import tmdbobjects.*;
+import tmdbobjects.Movie;
 
 class Wrapper<T> {
 	public int num;
@@ -14,35 +12,14 @@ class Wrapper<T> {
 
 public class Main {
 	public static void main(String[] args) {
-		//Movie movie = TMDBService.getMovie(64690);
-		//System.out.println(movie);
-		String req = "{\r\n"
-				+ "	\"num\" : 2,\r\n"
-				+ "	\"res\" : [\r\n"
-				+ "		{\r\n"
-				+ "			\"id\" : 1,\r\n"
-				+ "			\"name\" : \"Pavle\"\r\n"
-				+ "		},\r\n"
-				+ "		{\r\n"
-				+ "			\"id\" : 2,\r\n"
-				+ "			\"name\" : \"Tasija\"\r\n"
-				+ "		}\r\n"
-				+ "	]\r\n"
-				+ "}";
+		List<Movie> movieList = TMDBService.searchMovieByName("Drive", 1);
 		
-		ObjectMapper mapper = new ObjectMapper();
-		
-		Wrapper<Person> wrapper = null;
-		try {
-			wrapper = mapper.readValue(req, Wrapper.class);
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for(Movie movie : movieList) {
+			System.out.println(movie);
 		}
-		System.out.println(wrapper);
+		
+		/*Movie movie = TMDBService.getMovie(64690);
+		System.out.println(movie);*/
 	}
 	
 }

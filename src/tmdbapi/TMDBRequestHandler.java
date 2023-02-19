@@ -1,37 +1,31 @@
 package tmdbapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TMDBRequestHandler {
-
+	// Made static so we can make JavaTypes TODO:skontaj sta je javatype
+	private static final ObjectMapper mapper = new ObjectMapper();
+	public static ObjectMapper getMapper() {
+		return mapper;
+	}
+	
 	/**
-	 * 
-	 * @param objClass
-	 * @param request
-	 * @return
+	 * Gets a result string from DataBase and then uses ObjectMapper to map all objects into given JavaType
+	 * @param objType used to resolve generic class where java doesn't include type of generic class and ObjectMapper needs it
+	 * @param request Strings representing parts of request
+	 * @return Resulting Object type with all fields filled with information
 	 */
-	public static Object request(Class<?> objClass, Request request) {
+	public static Object request(JavaType objType, Request request) {
 		String result = sendRequest(request);
-		ObjectMapper mapper = new ObjectMapper();
 		Object object = null;
 		try {
-			if(request.getQuery() == "") {
-				object = mapper.readValue(result, objClass);
-			}
-			else {
-				
-			}
-			
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			object = mapper.readValue(result, objType);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return object;
 	}
 	

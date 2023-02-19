@@ -1,8 +1,8 @@
 package test;
 
 public class Person {
-	int id;
-	String name;
+	public int id;
+	public String name;
 }
 
 /*
