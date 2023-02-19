@@ -1,10 +1,10 @@
 # FilmPicker
-Website that recommends movies based on previous movies that you have watched.
+A website that recommends movies based on previous movies that you have watched.
 
 ## Current version:
 
 #### Java Backend
-* TMDBService class that provides interface for communaction with TMDB API
+* TMDBService class that provides an interface for communication with TMDB API
 * Generic classes for general communication and getting List or single object results
 * Console application that can print formatted information about movies
 
