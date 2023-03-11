@@ -1,34 +1,34 @@
 package tmdbapi;
 
 public class Request {
-	private String name;
-	private String query;
-	private String pageNum;
+	private String prefix;
+	private String suffix;
 	
-	public Request(String name) {
-		this(name, "", 0);
-	}
-	
-	public Request(String name, String query) {
-		this(name, query, 0);
+	public Request(String prefix) {
+		this(prefix, "");
 	}
 	
-	public Request(String name, String query, int pageNum) {
-		this.name = name;
-		this.query = (query == "" ? "" : "&query=" + query.replace(' ', '+')); // to match query pattern
-		this.pageNum = (pageNum == 0 ? "" : "&page=" + pageNum);
+	public Request(String prefix, String suffix) {
+		this.prefix = prefix;
+		this.suffix = suffix;
 	}
 
-	public String getName() {
-		return name;
+	public String getPrefix() {
+		return prefix;
 	}
 
-	public String getQuery() {
-		return query;
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	}
 
-	public String getPageNum() {
-		return pageNum;
+	public String getSuffix() {
+		return suffix;
 	}
+
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
+	
+	
 	
 }

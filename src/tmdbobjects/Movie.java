@@ -8,14 +8,18 @@ public class Movie extends TMDBObject {
 	private String poster_path;
 	private double popularity;
 	private String release_date;
+	private String title;
+	private int vote_count; // number of votes
+	private int vote_average; // average movie score
 
-	
 	@Override
 	public String toString() {
 		StringBuilder resultString = new StringBuilder();
-		resultString.append("Title: " + original_title + "\n");
+		resultString.append("Title: " + title + "\n");
 		resultString.append("Release date: " + release_date + "\n");
 		resultString.append("Popularity: " + popularity + "\n");
+		resultString.append("Vote count: " + vote_count + "\n");
+		resultString.append("Vote average: " + vote_average + "\n");
 		return resultString.toString();
 	}
 
@@ -73,6 +77,29 @@ public class Movie extends TMDBObject {
 
 	public void setRelease_date(String release_date) {
 		this.release_date = release_date;
+	}
+	public int getVote_count() {
+		return vote_count;
+	}
+
+	public void setVote_count(int vote_count) {
+		this.vote_count = vote_count;
+	}
+
+	public int getVote_average() {
+		return vote_average;
+	}
+
+	public void setVote_average(int vote_average) {
+		this.vote_average = vote_average;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 }

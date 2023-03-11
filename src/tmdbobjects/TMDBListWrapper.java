@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * 
+ * @author pavle
+ * Generic class for getting List of multiple results that matches criteria. 
+ * List is provided when we have additional query for request
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TMDBListWrapper<T> {
 	private int total_pages;

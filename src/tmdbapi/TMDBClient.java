@@ -27,10 +27,9 @@ public class TMDBClient implements Runnable {
 	// Returns full path of the request
 	private String getFullRequestString() {
 		String reqString = requestBase;
-		reqString += request.getName();
+		reqString += request.getPrefix();
 		reqString += apiKey;
-		reqString += request.getQuery();
-		reqString += request.getPageNum();
+		reqString += request.getSuffix();
 		return reqString;
 	}
 	
