@@ -10,7 +10,7 @@ public class Movie extends TMDBObject {
 	private String release_date;
 	private String title;
 	private int vote_count; // number of votes
-	private int vote_average; // average movie score
+	private double vote_average; // average movie score
 
 	@Override
 	public String toString() {
@@ -86,11 +86,11 @@ public class Movie extends TMDBObject {
 		this.vote_count = vote_count;
 	}
 
-	public int getVote_average() {
+	public double getVote_average() {
 		return vote_average;
 	}
 
-	public void setVote_average(int vote_average) {
+	public void setVote_average(double vote_average) {
 		this.vote_average = vote_average;
 	}
 

@@ -19,6 +19,9 @@ public class TMDBRequestHandler {
 	 */
 	public static Object request(JavaType objType, Request request) {
 		String result = sendRequest(request);
+		if(result.contains("status_code")) { // TODO: better impementation
+			return null;
+		}
 		Object object = null;
 		try {
 			object = mapper.readValue(result, objType);

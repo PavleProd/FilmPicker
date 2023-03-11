@@ -6,8 +6,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.JavaType;
 
-public class TMDBService {
-	private static final int minVoteCount = 5000; // minimal vote count for movie to be listed
+import test.Service;
+
+public class TMDBService extends Service {
 	/**
 	 * Request example: https://api.themoviedb.org/3/movie/64690?api_key=<key>
 	 * @param id
@@ -64,6 +65,18 @@ public class TMDBService {
 		JavaType objType = TMDBRequestHandler.getMapper().getTypeFactory().constructParametricType(TMDBListWrapper.class, Movie.class);
 		TMDBListWrapper<Movie> wrapper = (TMDBListWrapper<Movie>)TMDBRequestHandler.request(objType, new Request(prefix, suffix));
 		return (wrapper.getTotal_pages() >= pageNum ? wrapper.getResults() : null);
+	}
+	
+	/**
+	 * Request example: https://api.themoviedb.org/3/movie/latest?api_key=<key>
+	 * @return id(max id) of the latest released movie
+	 */
+	public static int getLatestID() {
+		String prefix = "movie/latest";
+		String suffix = "";
+		JavaType objType = TMDBRequestHandler.getMapper().getTypeFactory().constructType(Movie.class);
+		Movie latestMovie = (Movie)TMDBRequestHandler.request(objType, new Request(prefix, suffix));
+		return latestMovie.getId();
 	}
 	
 }
