@@ -14,11 +14,11 @@ public class Main {
 			System.out.println(movie.getTitle());
 		}*/
 		
-		/*Movie movie = TMDBService.getMovie(2);
-		System.out.println(movie);*/
-		
-		Movie movie = CommonService.getRandomMovie(7.0);
+		Movie movie = TMDBService.getMovie(2);
 		System.out.println(movie);
+		
+		//Movie movie = CommonService.getRandomMovie(7.0);
+		//System.out.println(movie);
 	}
 	
 }
