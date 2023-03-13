@@ -1,5 +1,5 @@
 # FilmPicker
-A website that recommends movies based on previous movies that you have watched.
+A website that recommends you movies based on your previous ratings
 
 ## Current version:
 
