@@ -14,8 +14,8 @@ import tmdbobjects.Movie;
  */
 public class CommonService extends Service {
 	/**
-	 * Returns Movie objects of "num" top rated movies of all time
-	 * @param num number of top rated movies to be printed
+	 * Returns Movie objects of "num" top-rated movies of all time
+	 * @param num number of top-rated movies to be printed
 	 */
 	public static List<Movie> getTopRatedMovies(int num) {
 		List<Movie> movieList = new ArrayList<>();
@@ -33,24 +33,9 @@ public class CommonService extends Service {
 		
 		return movieList;
 	}
-	
-	/**
-	 * Getting random movie by random picking movie ID. Other implementation: get all movies with >=MinScore, and then pick random
-	 * TODO: test which implmentation is better
-	 * @param minScore
-	 * @return
-	 */
+
 	public static Movie getRandomMovie(double minScore) {
-		int min = 0;
-		int max = TMDBService.getLatestID();
-		
-		Random randomGenerator = new Random();
-		Movie movie = null;
-		while(movie == null) { // TODO: exception handle
-			int movieID = randomGenerator.nextInt();
-			movie = (Movie)TMDBService.getMovie(movieID);
-		}
-		
-		return movie;
+
+		return null;
 	}
 }

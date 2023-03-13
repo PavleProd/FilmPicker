@@ -15,11 +15,11 @@ public class TMDBRequestHandler {
 	 * Gets a result string from DataBase and then uses ObjectMapper to map all objects into given JavaType
 	 * @param objType used to resolve generic class where java doesn't include type of generic class and ObjectMapper needs it
 	 * @param request Strings representing parts of request
-	 * @return Resulting Object type with all fields filled with information
+	 * @return Resulting Object type with all fields filled with information, null if the request is invalid
 	 */
 	public static Object request(JavaType objType, Request request) {
 		String result = sendRequest(request);
-		if(result.contains("status_code")) { // TODO: better impementation
+		if(result.equals("")) { // If there was an error with getting data
 			return null;
 		}
 		Object object = null;

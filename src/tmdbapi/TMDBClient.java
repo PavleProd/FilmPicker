@@ -80,8 +80,8 @@ public class TMDBClient implements Runnable {
 			
 			in.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// Result will be null if file doesn't exists.
+			// e.printStackTrace();
 		}
 	}
 }
