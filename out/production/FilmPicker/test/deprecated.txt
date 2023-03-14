@@ -1,0 +1,25 @@
+File for deprecated functions, no longer in use:
+
+/** Deprecated for bad performances
+* Getting random movie by random picking movie ID. Other implementation: get all movies with >=MinScore, and then pick random
+* @param minScore minimal score for movie to be listed
+* @return random picked Movie object. Movie needs to have some minimal number of ratings
+*/
+public static Movie getRandomMovie(double minScore) {
+    int min = 0;
+    int max = TMDBService.getLatestID();
+
+    Random randomGenerator = new Random();
+    Movie movie = null;
+    while(movie == null) {
+        int movieID = randomGenerator.nextInt(max);
+        movie = (Movie)TMDBService.getMovie(movieID);
+        if(movie != null) {
+            if(movie.getVote_count() < minVoteCount || movie.getVote_average() < minScore) {
+                movie = null;
+            }
+        }
+    }
+
+    return movie;
+}
