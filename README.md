@@ -8,7 +8,7 @@ A website that recommends you movies based on your previous ratings
 * Service class for most common requests
 * Generic classes for general communication and getting List or single object results
 * Console application that can print formatted information about movies
-* Random picking movie by minimal average rating
+* Random picking movie by minimal average rating and specific genre
 
 #### Frontend
 /
