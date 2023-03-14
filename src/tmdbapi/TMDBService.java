@@ -36,7 +36,7 @@ public class TMDBService extends Service {
     }
 
     /**
-     * Request example: https://api.themoviedb.org/3/discover/movie?page=1&vote_count.gte=300&vote_average.gte=7.0&with_genres=War
+     * Request example: https://api.themoviedb.org/3/discover/movie?page=1&vote_count.gte=300&vote_average.gte=7.0&with_genres=13
      *
      * @param minScore
      * @param genre
@@ -47,7 +47,7 @@ public class TMDBService extends Service {
         String prefix = "discover/movie";
         String suffix = "&page=1&vote_count.gte=" + minVoteCount + "&vote_average.gte=" + minScore;
         if (genre != null) {
-            suffix += "&with_genres=" + genre.getName();
+            suffix += "&with_genres=" + genre.getId();
         }
         JavaType objType = TMDBRequestHandler.getMapper().getTypeFactory().constructParametricType(TMDBListWrapper.class, Movie.class);
         TMDBListWrapper<Movie> wrapper = (TMDBListWrapper<Movie>) TMDBRequestHandler.request(objType, new Request(prefix, suffix));
@@ -56,13 +56,13 @@ public class TMDBService extends Service {
         if (totalResults == 0) return null;
         Random randomGenerator = new Random();
         int resultNum = randomGenerator.nextInt(totalResults);
-        int pageNum = resultNum / 20 + 1; // pages indexed from 1
-        resultNum = resultNum % 20;
+        int pageNum = resultNum / resultsPerPage + 1; // pages indexed from 1
+        resultNum = resultNum % resultsPerPage;
 
         if (pageNum != 1) { // if page == 1 we already got results
             suffix = "&page=" + pageNum + "&vote_count.gte=" + minVoteCount + "&vote_average.gte=" + minScore;
             if (genre != null) {
-                suffix += "&with_genres=" + genre.getName();
+                suffix += "&with_genres=" + genre.getId();
             }
             wrapper = (TMDBListWrapper<Movie>) TMDBRequestHandler.request(objType, new Request(prefix, suffix));
         }

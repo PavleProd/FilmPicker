@@ -1,16 +1,20 @@
 package tmdbobjects;
 
+import java.util.List;
+
 public class Movie extends TMDBObject {
     private int id;
     private String imdb_id;
-    private String original_title;
+    private String original_title; // title in language of origin
     private String overview;
     private String poster_path;
     private double popularity;
     private String release_date;
-    private String title;
+    private String title; // title in english
     private int vote_count; // number of votes
     private double vote_average; // average movie score
+
+    private List<Genre> genres; // genres of the movie
 
     @Override
     public String toString() {
@@ -101,6 +105,14 @@ public class Movie extends TMDBObject {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
     public String getIMDBLink() {

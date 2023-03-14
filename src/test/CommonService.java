@@ -34,7 +34,8 @@ public class CommonService extends Service {
         return movieList;
     }
 
-    public static void printAllGenres() {
+    public static void printAllGenres(List<Genre> genreList) {
+        if (genreList == null) return;
         for (Genre genre : genreList) {
             System.out.println(genre);
         }
