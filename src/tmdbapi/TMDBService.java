@@ -26,32 +26,48 @@ public class TMDBService extends Service {
     /**
      * Request example: https://api.themoviedb.org/3/discover/movie?api_key=<key>&vote_count.gte=300&vote_average.gte=7.0
      * Finds random movie with minScore minimum scored and preordered minimum number of views. Finds all movies with given
-     * criteria and chooses a random one. Number of API requests: 2
+     * criteria and chooses a random one. Number of API requests: 3
      *
      * @param minScore minimum score for movie
-     * @return Movie object of a random movie
+     * @return Movie object of a random movie with full information about the movie
      */
     public static Movie getRandomMovie(double minScore) {
-        if (minScore < 0.0 || minScore >= 10.0) return null;
+        return getRandomMovie(minScore, null);
+    }
 
+    /**
+     * Request example: https://api.themoviedb.org/3/discover/movie?page=1&vote_count.gte=300&vote_average.gte=7.0&with_genres=War
+     *
+     * @param minScore
+     * @param genre
+     * @return
+     */
+    public static Movie getRandomMovie(double minScore, Genre genre) {
+        if (minScore < 0.0 || minScore >= 10.0) return null;
         String prefix = "discover/movie";
         String suffix = "&page=1&vote_count.gte=" + minVoteCount + "&vote_average.gte=" + minScore;
+        if (genre != null) {
+            suffix += "&with_genres=" + genre.getName();
+        }
         JavaType objType = TMDBRequestHandler.getMapper().getTypeFactory().constructParametricType(TMDBListWrapper.class, Movie.class);
         TMDBListWrapper<Movie> wrapper = (TMDBListWrapper<Movie>) TMDBRequestHandler.request(objType, new Request(prefix, suffix));
 
         int totalResults = wrapper.getTotal_results();
+        if (totalResults == 0) return null;
         Random randomGenerator = new Random();
         int resultNum = randomGenerator.nextInt(totalResults);
         int pageNum = resultNum / 20 + 1; // pages indexed from 1
-        int t = resultNum;
         resultNum = resultNum % 20;
 
         if (pageNum != 1) { // if page == 1 we already got results
             suffix = "&page=" + pageNum + "&vote_count.gte=" + minVoteCount + "&vote_average.gte=" + minScore;
+            if (genre != null) {
+                suffix += "&with_genres=" + genre.getName();
+            }
             wrapper = (TMDBListWrapper<Movie>) TMDBRequestHandler.request(objType, new Request(prefix, suffix));
         }
-
-        return wrapper.getResults().get(resultNum);
+        assert wrapper != null;
+        return getMovie(wrapper.getResults().get(resultNum).getId()); // getting full information for the movie, list results gives partial information
     }
 
     /**
@@ -96,7 +112,7 @@ public class TMDBService extends Service {
     private static List<Movie> getMoviesList(int pageNum, String prefix, String suffix) {
         JavaType objType = TMDBRequestHandler.getMapper().getTypeFactory().constructParametricType(TMDBListWrapper.class, Movie.class);
         TMDBListWrapper<Movie> wrapper = (TMDBListWrapper<Movie>) TMDBRequestHandler.request(objType, new Request(prefix, suffix));
-        if (wrapper == null) return null;
+        assert wrapper != null; // ako nije vratice assertion error
         return (wrapper.getTotal_pages() >= pageNum ? wrapper.getResults() : null);
     }
 
@@ -113,5 +129,14 @@ public class TMDBService extends Service {
         return latestMovie.getId();
     }
 
-
+    /**
+     * Request example: https://api.themoviedb.org/3/genre/movie/list?api_key=<key>
+     */
+    public static void createGenreList() {
+        String prefix = "genre/movie/list";
+        JavaType objType = TMDBRequestHandler.getMapper().getTypeFactory().constructType(GenreWrapper.class);
+        GenreWrapper wrapper = (GenreWrapper) TMDBRequestHandler.request(objType, new Request(prefix));
+        assert wrapper != null;
+        genreList = wrapper.getGenres();
+    }
 }
