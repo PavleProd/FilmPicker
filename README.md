@@ -10,8 +10,6 @@ A website that recommends you movies based on your previous ratings
 * Console application that can print formatted information about movies
 * Random picking movie by minimal average rating and specific genre
 
-* .jar file that prints list of available genres, and lets returns random movie based on your genre(optional) and minimal rating(optional)
-
 #### Frontend
 /
 
